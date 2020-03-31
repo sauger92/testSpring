@@ -2,7 +2,9 @@ package com.example.coronapp.service;
 
 import com.example.coronapp.entity.Humain;
 import com.example.coronapp.enumeration.EtatDeSante;
+import com.example.coronapp.enumeration.Nom;
 import com.example.coronapp.repository.IHumainRepo;
+import com.example.coronapp.utils.HunainUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,28 +22,63 @@ public class HumainService {
   private final IHumainRepo humainRepo;
 
 
-  private final HopitalService hopitalService;
+  public List<Humain> soignerToutLeMonde(){
 
-  /**
-   * Méthode simulant le non respet du confinement
-   * Tout le mobde tombe malade
-   *
-   * @param humains n'ayant pas respecte le cnofinement (Ooh les vilains)
-   */
-  public void sortirHumain(List<Humain> humains) {
-    humains.forEach(humain -> {
-      humain.setEtat(EtatDeSante.MALADE);
-      humainRepo.save(humain);
-      hopitalService.ajouterPatient(humain, hopitalService.getHopitalByCountry(US));
-    });
-
+    return null;
   }
 
-  /**
-   * Tous les humains decident de sortir de chez eux pendant le confinemet
-   */
-  public void springBreak() {
-    sortirHumain(humainRepo.findAll().stream().filter(humain -> humain.getEtat().equals(EtatDeSante.SAIN)).collect(Collectors.toList()));
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* public List<Humain> soignerToutLeMonde(){
+     List<Humain> humains = humainRepo.findAll();
+
+    List<Humain> malades = humains
+            .stream()
+            .filter(humain -> humain.getEtat().equals(EtatDeSante.MALADE))
+            .collect(Collectors.toList());
+
+    malades.forEach(humain ->HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
+
+    return humainRepo.saveAll(malades);
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public List<Humain> changeEtatToutLeMpnde(EtatDeSante etatDeSante) {
+
+    List<Humain> malades = humainRepo.findAllByEtat(etatDeSante.equals(EtatDeSante.SAIN) ? EtatDeSante.MALADE : EtatDeSante.SAIN );
+
+    malades.forEach(humain -> HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
+
+    return humainRepo.saveAll(malades);
   }
+
+
 
 }

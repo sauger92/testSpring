@@ -19,35 +19,7 @@ import java.util.Optional;
 public class HopitalService {
 
   private final IHopitalRepo hopitalRepo;
-
-  /**
-   * Ajouter un nouveau patient a l'hopital.
-   * Si le patient n'est pas malade alors on throw une exception.
-   *
-   * @param patient patient devant
-   * @param hopital hopital acceuillant le patient
-   * @return l'hopital contenant le nouveau patient
-   */
-  public Hopital ajouterPatient(Humain patient, Hopital hopital) {
-
-    if (patient.getEtat() != EtatDeSante.MALADE) {
-      throw new RuntimeException("Le malade n'est pas malade");
-    }
-
-    if (hopital.getPatients() == null) {
-      hopital.setPatients(new LinkedList<>());
-    }
-
-    hopital.getPatients().add(patient);
-
-    hopitalRepo.save(hopital);
-
-    return hopital;
-
-  }
-
-  public Hopital getHopitalByCountry(Pays pays) {
-    return hopitalRepo.findFirstByPays(pays).orElseThrow(() -> new RuntimeException("Aucun pays pour le code donné !"));
-  }
-
+  
+  
+  
 }

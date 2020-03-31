@@ -19,21 +19,16 @@ class HumainUtilsTest {
 
   @Test
   void changeEtatHumainEquals() {
-    Humain malade = Humain.builder().dateAdmission(new Date()).etat(EtatDeSante.MALADE).build();
-    Humain resultat = HunainUtils.changeEtatHumain(malade, EtatDeSante.SAIN);
-
-    assertEquals(resultat.getEtat(), EtatDeSante.SAIN);
-    assertNull(resultat.getDateAdmission());
-
-    assertThat(resultat.getDateAdmission()).isNull();
-    Humain resultatAttendu = Humain.builder().etat(EtatDeSante.SAIN).build();
-    assertThat(resultat).isEqualToComparingFieldByField(resultatAttendu);
+    Humain malade = Humain.builder().dateDebutMaladie(new Date()).etat(EtatDeSante.MALADE).build();
+    Humain resultat = HunainUtils.changeEtatDeSanteHumain(malade, EtatDeSante.SAIN);
+    assertEquals(EtatDeSante.SAIN, resultat.getEtat() );
+    assertNull(resultat.getDateDebutMaladie());
 
   }
 
   @Test
   void changeEtatHumainThrow() {
     assertThrows(RuntimeException.class, () ->
-        HunainUtils.changeEtatHumain(Humain.builder().etat(EtatDeSante.SAIN).build(), EtatDeSante.SAIN));
+        HunainUtils.changeEtatDeSanteHumain(Humain.builder().etat(EtatDeSante.SAIN).build(), EtatDeSante.SAIN));
   }
 }

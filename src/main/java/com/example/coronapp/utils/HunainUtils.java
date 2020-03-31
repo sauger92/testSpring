@@ -23,12 +23,15 @@ public class HunainUtils {
    * @param humain pour qui l'Etat de santé doit être modifié
    * @return l'humain update
    */
-  public static Humain changeEtatHumain(Humain humain, EtatDeSante etatDeSante) {
-    if (humain.getEtat().equals(etatDeSante)) {
-      throw new RuntimeException("L'etat est deja le même !");
+  public static Humain changeEtatDeSanteHumain(Humain humain, EtatDeSante etatDeSante) {
+    if (humain == null ) {
+      humain = new Humain();
+    }
+    if ( humain.getEtat() != null && humain.getEtat().equals(etatDeSante)) {
+      throw new RuntimeException("L'etat est deja le bon !");
     }
     humain.setEtat(etatDeSante);
-    humain.setDateAdmission(etatDeSante.equals(EtatDeSante.MALADE) ? new Date() : null);
+    humain.setDateDebutMaladie(etatDeSante.equals(EtatDeSante.MALADE) ? new Date() : null);
 
     log.info("{} est {}", humain.getNom(), etatDeSante.name().toLowerCase());
     return humain;

@@ -14,12 +14,12 @@ public class HumainUtilsTestAssertJ {
 
   @Test
   void changeEtatHumainEquals() {
-    Humain malade = Humain.builder().dateAdmission(new Date()).etat(EtatDeSante.MALADE).build();
-    Humain resultat = HunainUtils.changeEtatHumain(malade, EtatDeSante.SAIN);
+    Humain malade = Humain.builder().dateDebutMaladie(new Date()).etat(EtatDeSante.MALADE).build();
+    Humain resultat = HunainUtils.changeEtatDeSanteHumain(malade, EtatDeSante.SAIN);
     Humain resultatAttendu = Humain.builder().etat(EtatDeSante.SAIN).build();
-    Assertions.assertThat(resultat).isEqualToComparingFieldByField(resultatAttendu);
-    Assertions.assertThat(resultat.getDateAdmission()).isNull();
 
+    Assertions.assertThat(resultat).isEqualToComparingFieldByField(resultatAttendu);
+    Assertions.assertThat(resultat.getDateDebutMaladie()).isNull();
 
   }
 
@@ -27,7 +27,7 @@ public class HumainUtilsTestAssertJ {
   void changeEtatHumainThrow() {
 
     Assertions.assertThatExceptionOfType(RuntimeException.class)
-              .isThrownBy(() -> HunainUtils.changeEtatHumain(Humain.builder().etat(EtatDeSante.SAIN).build(), EtatDeSante.SAIN))
+              .isThrownBy(() -> HunainUtils.changeEtatDeSanteHumain(Humain.builder().etat(EtatDeSante.SAIN).build(), EtatDeSante.SAIN))
               .withMessage("L'etat est deja le même !");
   }
 }

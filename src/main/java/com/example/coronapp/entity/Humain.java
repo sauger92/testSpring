@@ -2,6 +2,7 @@ package com.example.coronapp.entity;
 
 import com.example.coronapp.enumeration.EtatDeSante;
 import com.example.coronapp.enumeration.Nom;
+import com.example.coronapp.enumeration.Pays;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,11 +33,13 @@ public class Humain {
   private EtatDeSante etat;
 
   /**
-   * Date d'admission dans un hopital
+   * Date à laquelle l'humain tombe malade ou null si l'humain n'est pas malade
    */
-  private Date dateAdmission;
+  private Date dateDebutMaladie;
 
   @ManyToOne
   private Hopital hopital;
+
+  private Pays pays;
 
 }
