@@ -1,6 +1,6 @@
 package com.example.coronapp.enumeration;
 
-public enum  Pays {
-  US,
-  FRANCE;
+public enum  Ville {
+  PARIS,
+  LYON;
 }

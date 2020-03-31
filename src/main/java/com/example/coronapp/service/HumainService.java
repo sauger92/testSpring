@@ -2,7 +2,6 @@ package com.example.coronapp.service;
 
 import com.example.coronapp.entity.Humain;
 import com.example.coronapp.enumeration.EtatDeSante;
-import com.example.coronapp.enumeration.Nom;
 import com.example.coronapp.repository.IHumainRepo;
 import com.example.coronapp.utils.HunainUtils;
 import lombok.RequiredArgsConstructor;
@@ -11,73 +10,50 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.example.coronapp.enumeration.Pays.US;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class HumainService {
 
-  private final IHumainRepo humainRepo;
+    private final IHumainRepo humainRepo;
 
 
-  public List<Humain> soignerToutLeMonde(){
+    public List<Humain> soignerToutLeMonde() {
+        List<Humain> humains = humainRepo.findAll();
 
-    return null;
-  }
+        List<Humain> malades = humains
+                .stream()
+                .filter(humain -> humain.getEtat().equals(EtatDeSante.MALADE))
+                .collect(Collectors.toList());
 
+        malades.forEach(humain -> HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
 
+        return humainRepo.saveAll(malades);
 
-
-
-
-
-
-
-
-
+    }
 
 
+    public List<Humain> changeEtatToutLeMonde(EtatDeSante etatDeSante) {
 
-  /* public List<Humain> soignerToutLeMonde(){
-     List<Humain> humains = humainRepo.findAll();
+        List<Humain> humains = humainRepo.findAllByEtat(etatDeSante.equals(EtatDeSante.SAIN) ? EtatDeSante.MALADE : EtatDeSante.SAIN);
 
-    List<Humain> malades = humains
-            .stream()
-            .filter(humain -> humain.getEtat().equals(EtatDeSante.MALADE))
-            .collect(Collectors.toList());
+        humains.forEach(humain -> HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
 
-    malades.forEach(humain ->HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
-
-    return humainRepo.saveAll(malades);
-
-}*/
+        return humainRepo.saveAll(humains);
+    }
 
 
+    public Humain changerEtatDeSanteUnePersonne(Humain humain, EtatDeSante etatDeSante) {
+        return humainRepo.save(HunainUtils.changeEtatDeSanteHumain(humain, etatDeSante));
 
+    }
 
+    public Stream<Humain> getHumainStream(List<Humain> humains) {
+        return humains.stream();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  public List<Humain> changeEtatToutLeMpnde(EtatDeSante etatDeSante) {
-
-    List<Humain> malades = humainRepo.findAllByEtat(etatDeSante.equals(EtatDeSante.SAIN) ? EtatDeSante.MALADE : EtatDeSante.SAIN );
-
-    malades.forEach(humain -> HunainUtils.changeEtatDeSanteHumain(humain, EtatDeSante.SAIN));
-
-    return humainRepo.saveAll(malades);
-  }
 
 
 

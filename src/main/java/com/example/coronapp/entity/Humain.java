@@ -2,18 +2,9 @@ package com.example.coronapp.entity;
 
 import com.example.coronapp.enumeration.EtatDeSante;
 import com.example.coronapp.enumeration.Nom;
-import com.example.coronapp.enumeration.Pays;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -40,6 +31,5 @@ public class Humain {
   @ManyToOne
   private Hopital hopital;
 
-  private Pays pays;
 
 }

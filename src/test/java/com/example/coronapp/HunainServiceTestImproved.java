@@ -5,7 +5,6 @@ import com.example.coronapp.enumeration.EtatDeSante;
 import com.example.coronapp.enumeration.Nom;
 import com.example.coronapp.repository.IHumainRepo;
 import com.example.coronapp.service.HumainService;
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +52,7 @@ public class HunainServiceTestImproved {
 
        humains.forEach(humain -> humain.setEtat(EtatDeSante.SAIN));
 
-       List<Humain> resultat = humainService.changeEtatToutLeMpnde(EtatDeSante.SAIN);
+       List<Humain> resultat = humainService.changeEtatToutLeMonde(EtatDeSante.SAIN);
 
         assertThat(resultat)
                 .usingFieldByFieldElementComparator()

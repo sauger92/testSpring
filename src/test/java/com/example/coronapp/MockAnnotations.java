@@ -4,7 +4,7 @@ import com.example.coronapp.entity.Hopital;
 import com.example.coronapp.entity.Humain;
 import com.example.coronapp.enumeration.EtatDeSante;
 import com.example.coronapp.enumeration.Nom;
-import com.example.coronapp.enumeration.Pays;
+import com.example.coronapp.enumeration.Ville;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,14 +17,9 @@ public class MockAnnotations {
   @Mock
   private Humain humainMock;
 
-
   @Test
   public void mockAnnotation() {
     Mockito.when(humainMock.getNom()).thenReturn(Nom.JACQUES);
-    assertThat(humainMock.getNom()).isEqualTo(Nom.JACQUES);
-
-    //Meme mock en utilisant BDDMockito
-    BDDMockito.given(humainMock.getNom()).willReturn(Nom.JACQUES);
     assertThat(humainMock.getNom()).isEqualTo(Nom.JACQUES);
 
   }
@@ -49,9 +44,9 @@ public class MockAnnotations {
     Mockito.when(humainMock.getEtat()).thenReturn(EtatDeSante.SAIN);
     assertThat(humainMock.getEtat()).isEqualTo(EtatDeSante.SAIN);
 
-    humainMock.setEtat(EtatDeSante.SAIN);
+    humainSpy.setEtat(EtatDeSante.SAIN);
     //Spy n'est que un mocking partiel. Les méthodes non mockées ont un comportement normal
-    assertThat(humainMock.getEtat()).isEqualTo(EtatDeSante.SAIN);
+    assertThat(humainSpy.getEtat()).isEqualTo(EtatDeSante.SAIN);
 
   }
 
@@ -60,23 +55,23 @@ public class MockAnnotations {
 
   @Test
   public void captorAnnotation() {
-    humainMock.setPays(Pays.FRANCE);
-    // Expliquer Verify
-    Mockito.verify(humainMock).setPays((Pays) captor.capture());
-   assertThat(captor.getValue()).isEqualTo(Pays.FRANCE);
+    humainMock.setNom(Nom.JACQUELINE);
+
+    Mockito.verify(humainMock).setNom((Nom) captor.capture());
+   assertThat(captor.getValue()).isEqualTo(Nom.JACQUELINE);
   }
 
   @Mock
-  Hopital hopital;
+  Hopital hopitalInjected;
 
   @InjectMocks
-  Humain humainInjected = Humain.builder().hopital(new Hopital()).build();
+  Humain humain = Humain.builder().hopital(new Hopital()).build();
 
 
   @Test
   public void injectMockAnnotation() {
-    Mockito.when(hopital.getPays()).thenReturn(Pays.FRANCE);
-    assertThat(humainInjected.getHopital().getPays()).isEqualTo(Pays.FRANCE);
+    Mockito.when(hopitalInjected.getVille()).thenReturn(Ville.LYON);
+    assertThat(humain.getHopital().getVille()).isEqualTo(Ville.LYON);
   }
 
 

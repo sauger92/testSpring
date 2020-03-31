@@ -1,6 +1,7 @@
 package com.example.coronapp.entity;
 
-import com.example.coronapp.enumeration.Pays;
+
+import com.example.coronapp.enumeration.Ville;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,11 +19,11 @@ import java.util.List;
 @Builder
 public class Hopital {
 
-  @Id
-  private Long id;
+    @Id
+    private Long id;
 
-  @OneToMany(targetEntity=Humain.class, mappedBy="hopital")
-  private List<Humain> patients;
+    @OneToMany(targetEntity = Humain.class, mappedBy = "hopital")
+    private List<Humain> patients;
 
-  private Pays pays;
+    private Ville ville;
 }
